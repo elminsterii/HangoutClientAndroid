@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">HangOutApp</string>
+    <string name="action_settings">Post</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Register</string>
+</resources>

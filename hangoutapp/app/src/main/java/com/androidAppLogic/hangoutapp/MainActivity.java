@@ -1,4 +1,4 @@
-package com.example.yoie7.hangoutapp;
+package com.androidAppLogic.hangoutapp;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.example.yoie7.hangoutapp.HttpConnect.HttpProxy;
+import com.androidAppLogic.hangoutapp.HttpConnect.HttpProxy;
 import java.util.HashMap;
 
 import java.util.Map;

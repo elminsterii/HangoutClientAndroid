@@ -1,4 +1,4 @@
-package com.example.yoie7.hangoutapp.HttpConnect;
+package com.androidAppLogic.hangoutapp.HttpConnect;
 
 
 import android.os.AsyncTask;
@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import com.example.yoie7.hangoutapp.Tool.JasonTool;
+import com.androidAppLogic.hangoutapp.Tool.JasonTool;
 /**
  * Created by yoie7 on 2018/4/27.
  */
