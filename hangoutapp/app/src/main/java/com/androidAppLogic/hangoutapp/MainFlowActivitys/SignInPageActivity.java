@@ -31,4 +31,18 @@ public class SignInPageActivity extends BaseActivity{
     protected void initListner(){
 
     }
+
+
+    private class SignInPageLogic{
+
+        public boolean isPwdValid(String pwd){
+            boolean result = false;
+            return result;
+        }
+
+        public boolean signIn(String acount, String pwd){
+            boolean result = false;
+            return result;
+        }
+    }
 }

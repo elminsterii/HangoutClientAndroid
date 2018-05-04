@@ -13,11 +13,13 @@ public class BaseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //bind initial layout
+        initView();
+        initData();
+        initListner();
     }
 
     protected void initView(){
         //bind view content
-
     }
     protected void initData(){
         //set data
@@ -25,4 +27,9 @@ public class BaseActivity extends Activity {
     protected void initListner(){
         //bind listner
     }
+
+
+
+
+
 }

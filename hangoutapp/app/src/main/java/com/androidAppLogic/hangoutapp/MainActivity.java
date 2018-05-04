@@ -1,5 +1,6 @@
 package com.androidAppLogic.hangoutapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.androidAppLogic.hangoutapp.HttpConnect.HttpProxy;
+import com.androidAppLogic.hangoutapp.MainFlowActivitys.RegisterPageActivity;
+
 import java.util.HashMap;
 
 import java.util.Map;
@@ -49,12 +52,16 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask();
+            /*HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask();
             Map<String, String> jsonMap1 = new HashMap<String, String>();
             jsonMap1.put("account","yoie");
             jsonMap1.put("name","y");
             pTask.execute(jsonMap1);
             return true;
+            */
+            Intent intent = new Intent(this,
+                    RegisterPageActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

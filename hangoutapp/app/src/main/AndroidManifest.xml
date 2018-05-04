@@ -19,6 +19,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainFlowActivitys.RegisterPageActivity"
+            android:label="@string/sign_up"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
+            android:name=".MainFlowActivitys.SignInPageActivity"
+            android:label="@string/sign_in"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

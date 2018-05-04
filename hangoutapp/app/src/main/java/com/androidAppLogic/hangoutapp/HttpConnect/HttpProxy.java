@@ -16,11 +16,26 @@ import com.androidAppLogic.hangoutapp.Tool.JasonTool;
  */
 
 public class HttpProxy {
+
+    public interface AsyncResponse {
+        boolean processFinish(boolean output);
+    }
+    public static final String HTTP_POST_API_REGISTER =   "https://hangouttw.appspot.com/register";
+    public static final String HTTP_POST_API_UNREGISTER = "https://hangouttw.appspot.com/register";
+    public static final String HTTP_POST_API_QUERY = "https://hangouttw.appspot.com/queryperson";
+
+    public static final int HTTP_POST_TIMEOUT = 10;
+    public static final int HTTP_GET_TIMEOUT = 15;
+
+
     private static final String LOG_TAG = "HttpProxy";
 
     /* interface for use:
                       1.HttpGetTask
                       2.HttpPostTask
+                        input:
+                        a.arg0[0]: Map<String, String> for Json format
+                        b.arg0[1]: Url for different usage
     */
 
     public static class HttpGetTask extends AsyncTask<String,Void,String> {
@@ -50,7 +65,7 @@ public class HttpProxy {
                 //connection.setDoOutput(true);
 
                 // 設定TimeOut時間
-                connection.setReadTimeout(15*1000);
+                connection.setReadTimeout(HTTP_GET_TIMEOUT*1000);
                 connection.connect();
 
                 // 伺服器回來的參數
@@ -100,6 +115,12 @@ public class HttpProxy {
 
     public static class HttpPostTask extends AsyncTask<Object,Void,String> {
 
+
+        public AsyncResponse delegate = null;
+
+        public HttpPostTask(AsyncResponse delegate){
+            this.delegate = delegate;
+        }
         @Override
         public void onPreExecute() {
             super.onPreExecute();
@@ -107,12 +128,13 @@ public class HttpProxy {
 
         @Override
         public String doInBackground(Object... arg0) {
-
+            boolean result = false;
             URL url = null;
             BufferedReader reader = null;
             StringBuilder stringBuilder;
             String jsonString = JasonTool.createJsonString(arg0[0]);
 
+            String strUrl = String.valueOf(arg0[1]);
             try
             {
                 // create the HttpURLConnection
@@ -124,7 +146,7 @@ public class HttpProxy {
                 connection.setRequestProperty("Content-Type","application/json; charset=UTF-8");
                 connection.setRequestProperty("Accept", "application/json");
                 connection.setRequestMethod("POST");
-                connection.setConnectTimeout(10*1000);
+                connection.setConnectTimeout(HTTP_POST_TIMEOUT*1000);
                 connection.setReadTimeout(10000);
                 connection.setDoInput(true);                                                        //允許輸入流，即允許下載
                 connection.setDoOutput(true);                                                       //允許輸出流，即允許上傳
@@ -188,9 +210,13 @@ public class HttpProxy {
         @Override
         public void onPostExecute(String result) {
             super.onPostExecute(result);
-            if(!"".equals(result) || null != result){
+            if(result.contains("200 OK "))
+                delegate.processFinish(true);
+            else
+                delegate.processFinish(false);
 
-            }
+
+
         }
     }
 }
