@@ -21,8 +21,13 @@ public class HttpProxy {
         boolean processFinish(boolean output);
     }
     public static final String HTTP_POST_API_REGISTER =   "https://hangouttw.appspot.com/register";
-    public static final String HTTP_POST_API_UNREGISTER = "https://hangouttw.appspot.com/register";
-    public static final String HTTP_POST_API_QUERY = "https://hangouttw.appspot.com/queryperson";
+    public static final String HTTP_POST_API_UNREGISTER = "https://hangouttw.appspot.com/unregister";
+    public static final String HTTP_POST_API_QUERY_PERSON = "https://hangouttw.appspot.com/queryperson";
+    public static final String HTTP_POST_API_LOGIN = "https://hangouttw.appspot.com/login";
+    public static final String HTTP_POST_API_LOGOUT = "https://hangouttw.appspot.com/logout";
+    public static final String HTTP_POST_API_UPDATE_PERSON = "https://hangouttw.appspot.com/updateperson";
+
+
 
     public static final int HTTP_POST_TIMEOUT = 10;
     public static final int HTTP_GET_TIMEOUT = 15;
@@ -133,12 +138,12 @@ public class HttpProxy {
             BufferedReader reader = null;
             StringBuilder stringBuilder;
             String jsonString = JasonTool.createJsonString(arg0[0]);
-
-            String strUrl = String.valueOf(arg0[1]);
+            //jsonString =  "{\"email":"aaaa","gender":"ddd","displayname":"ccc","password":"bbb","age":"32"}";
+            //jsonString = "{\"email\":\"Jimmy2@gmail.com\",\"userpassword\":\"12345\",\"gender\":\"Male\",\"age\":32,\"displayname\":\"Jimmy1\"}";
             try
             {
                 // create the HttpURLConnection
-                url = new URL("https://hangouttw.appspot.com/register");
+                url = new URL(String.valueOf(arg0[1]));
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
                 // 使用甚麼方法做連線
@@ -169,7 +174,6 @@ public class HttpProxy {
                 writer.flush();
                 writer.close();
                 os.close();
-
 
 
                 //response body
