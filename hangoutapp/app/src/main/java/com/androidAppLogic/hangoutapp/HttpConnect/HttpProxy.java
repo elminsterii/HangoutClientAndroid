@@ -22,10 +22,14 @@ public class HttpProxy {
     }
     public static final String HTTP_POST_API_REGISTER =   "https://hangouttw.appspot.com/register";
     public static final String HTTP_POST_API_UNREGISTER = "https://hangouttw.appspot.com/unregister";
-    public static final String HTTP_POST_API_QUERY_PERSON = "https://hangouttw.appspot.com/queryperson";
     public static final String HTTP_POST_API_LOGIN = "https://hangouttw.appspot.com/login";
     public static final String HTTP_POST_API_LOGOUT = "https://hangouttw.appspot.com/logout";
-    public static final String HTTP_POST_API_UPDATE_PERSON = "https://hangouttw.appspot.com/updateperson";
+    public static final String HTTP_POST_API_PERSON_QUERY_ = "https://hangouttw.appspot.com/queryperson";
+    public static final String HTTP_POST_API_PERSON_UPDATE = "https://hangouttw.appspot.com/updateperson";
+    public static final String HTTP_POST_API_ACTIVITY_CREATE = "https://hangouttw.appspot.com/createactivity";
+    public static final String HTTP_POST_API_ACTIVITY_DELETE = "https://hangouttw.appspot.com/deleteactivity";
+    public static final String HTTP_POST_API_ACTIVITY_QUERY = "https://hangouttw.appspot.com/queryactivity";
+    public static final String HTTP_POST_API_ACTIVITY_UPDATE = "https://hangouttw.appspot.com/updateactivity";
 
 
 

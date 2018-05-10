@@ -13,6 +13,7 @@ import com.androidAppLogic.hangoutapp.DataStructure.BaseActivity;
 import com.androidAppLogic.hangoutapp.HttpConnect.HttpProxy;
 import com.androidAppLogic.hangoutapp.R;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -23,15 +24,36 @@ import java.util.concurrent.ExecutionException;
 
 public class RegisterPageActivity extends BaseActivity {
 
-
+    //                      Person Attr.
     public static final int AGE_LIMITATION = 18;
-    public static final String REGISTER_ATTRIBUTES_ACCOUNT = "email";
-    public static final String REGISTER_ATTRIBUTES_PASSWORD = "userpassword";
-    public static final String REGISTER_ATTRIBUTES_NAME = "displayname";
-    public static final String REGISTER_ATTRIBUTES_GENDER = "gender";
-    public static final String REGISTER_ATTRIBUTES_AGE = "age";
-    public static final String REGISTER_ATTRIBUTES_LOCATION = "location";
-    public static final String REGISTER_ATTRIBUTES_INTERESTS = "interests";
+    public static final String REGISTER_ATTRIBUTES_PERSON_ACCOUNT = "email";
+    public static final String REGISTER_ATTRIBUTES_PERSON_PASSWORD = "userpassword";
+    public static final String REGISTER_ATTRIBUTES_PERSON_NAME = "displayname";
+    public static final String REGISTER_ATTRIBUTES_PERSON_GENDER = "gender";
+    public static final String REGISTER_ATTRIBUTES_PERSON_AGE = "age";
+    public static final String REGISTER_ATTRIBUTES_PERSON_LOCATION = "location";
+    public static final String REGISTER_ATTRIBUTES_PERSON_INTERESTS = "interests";
+    public static final String REGISTER_ATTRIBUTES_PERSON_DESCRIPTION = "description";
+    public static final String REGISTER_ATTRIBUTES_PERSON_JOIN_ACTIVITY = "joinactivities";
+    public static final String REGISTER_ATTRIBUTES_PERSON_HOLD_ACTIVITY = "holdactivities";
+    public static final String REGISTER_ATTRIBUTES_PERSON_GOOD_MEMBER = "goodmember";
+    public static final String REGISTER_ATTRIBUTES_PERSON_GOOD_LEADER = "goodleader";
+    public static final String REGISTER_ATTRIBUTES_PERSON_NEW_PASSWORD = "newuserpassword";
+    public static final String REGISTER_ATTRIBUTES_PERSON_ONLINE = "online";
+
+    //                      Activity Attr.
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_EMAIL = "publisheremail";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_PASSWORD = "publisheruserpassword";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_PUBLISH_BEGIN = "publishbegin";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_PUBLISH_END = "publishend";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_LARGE_ACTIVITY = "largeactivity";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_EARLY_BIRD = "earlybird";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_DISPLAYNAME = "displayname";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_DATE_BEGIN = "datebegin";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_DATE_END = "dateend";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_LOCATION = "location";
+
+
 
     private EditText mEditText_Account;
     private EditText mEditText_Password;
@@ -111,18 +133,33 @@ public class RegisterPageActivity extends BaseActivity {
                                                 m_strGender,
                                                 m_strAge);
                 */
-                //doRegister("Jimmy10545454111@gmail.com","12345","Jimmy44441","Male","32");
+                //doRegister("yoie1@gmail.com","12345","Jimmy44441","Male","32");
                 //doQueryPerson("Jimmy10545454111@gmail.com");
                 Map<String, Object> jsonMap1 = new HashMap<String, Object>();
-                jsonMap1.put(REGISTER_ATTRIBUTES_LOCATION, "12345ggg");
-                jsonMap1.put(REGISTER_ATTRIBUTES_AGE, 54);
-                jsonMap1.put(REGISTER_ATTRIBUTES_INTERESTS, "ball");
+                jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_LOCATION, "12345ggg");
+                jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_AGE, 54);
+                jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_INTERESTS, "ball");
+                jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_NEW_PASSWORD, "wqwqwqdddddddwqw");
 
-                //doUpdatePerson("Jimmy10545454111@gmail.com",jsonMap1);
-                //doQueryPerson("Jimmy10545454111@gmail.com");
+                //doUpdatePerson("yoie1@gmail.com", "wqwqwqwqw", jsonMap1);
+                //doQueryPerson("yoie1@gmail.com");
                 //doLogIn("Jimmy10545454111@gmail.com","12345");
                 //doLogOut("Jimmy10545454111@gmail.com","12345");
-                doUnRegister("Jimmy10545454111@gmail.com","12345");
+                //doUnRegister("Jimmy10545454111@gmail.com","12345");
+
+                Map<String, Object> activityList = new HashMap<String, Object>();
+                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_EMAIL, "yoie1@gmail.com");
+                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_PASSWORD, "wqwqwqdddddddwqw");
+                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_DATE_BEGIN, new Date());
+                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_DATE_END, new Date());
+                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_DISPLAYNAME, "yaya");
+                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_EARLY_BIRD, 1);
+                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_LARGE_ACTIVITY, 2);
+                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISH_BEGIN, new Date());
+                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISH_END, new Date());
+                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_LOCATION, "home");
+
+                doCreateActivity(activityList);
 
 
             }
@@ -143,11 +180,11 @@ public class RegisterPageActivity extends BaseActivity {
             }
         });
         Map<String, Object> jsonMap1 = new HashMap<String, Object>();
-        jsonMap1.put(REGISTER_ATTRIBUTES_ACCOUNT, strAccount);
-        jsonMap1.put(REGISTER_ATTRIBUTES_PASSWORD, strPwd);
-        jsonMap1.put(REGISTER_ATTRIBUTES_NAME, strName);
-        jsonMap1.put(REGISTER_ATTRIBUTES_GENDER, strGender);
-        jsonMap1.put(REGISTER_ATTRIBUTES_AGE, 32);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_PASSWORD, strPwd);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_NAME, strName);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_GENDER, strGender);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_AGE, 32);
 
 
         pTask.execute(jsonMap1, HttpProxy.HTTP_POST_API_REGISTER);
@@ -178,8 +215,8 @@ public class RegisterPageActivity extends BaseActivity {
             }
         });
         Map<String, String> jsonMap1 = new HashMap<String, String>();
-        jsonMap1.put(REGISTER_ATTRIBUTES_ACCOUNT, strAccount);
-        jsonMap1.put(REGISTER_ATTRIBUTES_PASSWORD, strPwd);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_PASSWORD, strPwd);
         pTask.execute(jsonMap1, HttpProxy.HTTP_POST_API_UNREGISTER);
         try {
             String response  = pTask.get();
@@ -206,11 +243,11 @@ public class RegisterPageActivity extends BaseActivity {
             }
         });
         Map<String, String> jsonMap1 = new HashMap<String, String>();
-        jsonMap1.put(REGISTER_ATTRIBUTES_ACCOUNT, strAccount);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
 
 
 
-        pTask.execute(jsonMap1, HttpProxy.HTTP_POST_API_QUERY_PERSON);
+        pTask.execute(jsonMap1, HttpProxy.HTTP_POST_API_PERSON_QUERY_);
         try {
             String response  = pTask.get();
             if (response.contains("200 OK ")) {
@@ -236,8 +273,8 @@ public class RegisterPageActivity extends BaseActivity {
             }
         });
         Map<String, String> jsonMap1 = new HashMap<String, String>();
-        jsonMap1.put(REGISTER_ATTRIBUTES_ACCOUNT, strAccount);
-        jsonMap1.put(REGISTER_ATTRIBUTES_PASSWORD, strPwd);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_PASSWORD, strPwd);
         pTask.execute(jsonMap1, HttpProxy.HTTP_POST_API_LOGIN);
         try {
             String response  = pTask.get();
@@ -264,8 +301,8 @@ public class RegisterPageActivity extends BaseActivity {
             }
         });
         Map<String, String> jsonMap1 = new HashMap<String, String>();
-        jsonMap1.put(REGISTER_ATTRIBUTES_ACCOUNT, strAccount);
-        jsonMap1.put(REGISTER_ATTRIBUTES_PASSWORD, strPwd);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
+        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_PASSWORD, strPwd);
         pTask.execute(jsonMap1, HttpProxy.HTTP_POST_API_LOGOUT);
         try {
             String response  = pTask.get();
@@ -283,7 +320,7 @@ public class RegisterPageActivity extends BaseActivity {
         return result;
     }
 
-    public boolean doUpdatePerson(String strAccount,  Map<String, Object> updateList) {
+    public boolean doUpdatePerson(String strAccount,  String strPwd,Map<String, Object> updateList) {
         boolean result = false;
         HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
             @Override
@@ -291,11 +328,41 @@ public class RegisterPageActivity extends BaseActivity {
                 return output;
             }
         });
-        updateList.put(REGISTER_ATTRIBUTES_ACCOUNT, strAccount);
+        updateList.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
+        updateList.put(REGISTER_ATTRIBUTES_PERSON_PASSWORD, strPwd);
 
 
 
-        pTask.execute(updateList, HttpProxy.HTTP_POST_API_UPDATE_PERSON);
+        pTask.execute(updateList, HttpProxy.HTTP_POST_API_PERSON_UPDATE);
+        try {
+            String response  = pTask.get();
+            if (response.contains("200 OK ")) {
+                result = true;
+                Toast.makeText(RegisterPageActivity.this, "doUpdatePerson OK", Toast.LENGTH_SHORT).show();
+            }
+            else
+                result =  false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean doCreateActivity(Map<String, Object> updateList) {
+        boolean result = false;
+        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
+            @Override
+            public boolean processFinish(boolean output) {
+                return output;
+            }
+        });
+
+
+
+
+        pTask.execute(updateList, HttpProxy.HTTP_POST_API_ACTIVITY_CREATE);
         try {
             String response  = pTask.get();
             if (response.contains("200 OK ")) {
