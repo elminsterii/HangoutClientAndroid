@@ -42,6 +42,8 @@ public class RegisterPageActivity extends BaseActivity {
     public static final String REGISTER_ATTRIBUTES_PERSON_ONLINE = "online";
 
     //                      Activity Attr.
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_ID = "id";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_IDS = "ids";
     public static final String REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_EMAIL = "publisheremail";
     public static final String REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_PASSWORD = "publisheruserpassword";
     public static final String REGISTER_ATTRIBUTES_ACTIVITY_PUBLISH_BEGIN = "publishbegin";
@@ -52,6 +54,12 @@ public class RegisterPageActivity extends BaseActivity {
     public static final String REGISTER_ATTRIBUTES_ACTIVITY_DATE_BEGIN = "datebegin";
     public static final String REGISTER_ATTRIBUTES_ACTIVITY_DATE_END = "dateend";
     public static final String REGISTER_ATTRIBUTES_ACTIVITY_LOCATION = "location";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_IMAGE = "image";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_DESCRIPTION = "description";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_TAGS = "tags";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_GOOD_ACTIVITY = "goodactivity";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_ATTENTION = "attention";
+    public static final String REGISTER_ATTRIBUTES_ACTIVITY_ATTENDEES = "attendees";
 
 
 
@@ -158,8 +166,28 @@ public class RegisterPageActivity extends BaseActivity {
                 activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISH_BEGIN, new Date());
                 activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISH_END, new Date());
                 activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_LOCATION, "home");
+                //doCreateActivity(activityList);
 
-                doCreateActivity(activityList);
+
+                Map<String, Object> activityList_delete = new HashMap<String, Object>();
+                activityList_delete.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_EMAIL, "yoie1@gmail.com");
+                activityList_delete.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_PASSWORD, "wqwqwqdddddddwqw");
+                activityList_delete.put(REGISTER_ATTRIBUTES_ACTIVITY_ID, 24);
+                doDeleteActivity(activityList_delete);
+
+                int[] idArray = {24};
+                Map<String, Object> activityList_query = new HashMap<String, Object>();
+                activityList_query.put(REGISTER_ATTRIBUTES_ACTIVITY_IDS, idArray);
+                //doQueryActivity(activityList_query);
+
+
+                Map<String, Object> activityList_update = new HashMap<String, Object>();
+                activityList_update.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_EMAIL, "yoie1@gmail.com");
+                activityList_update.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_PASSWORD, "wqwqwqdddddddwqw");
+                activityList_update.put(REGISTER_ATTRIBUTES_ACTIVITY_ID, 24);
+                activityList_update.put(REGISTER_ATTRIBUTES_ACTIVITY_TAGS, "LOL");
+
+                //doUpdateActivity(activityList_update);
 
 
             }
@@ -363,6 +391,93 @@ public class RegisterPageActivity extends BaseActivity {
 
 
         pTask.execute(updateList, HttpProxy.HTTP_POST_API_ACTIVITY_CREATE);
+        try {
+            String response  = pTask.get();
+            if (response.contains("200 OK ")) {
+                result = true;
+                Toast.makeText(RegisterPageActivity.this, "doUpdatePerson OK", Toast.LENGTH_SHORT).show();
+            }
+            else
+                result =  false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean doDeleteActivity(Map<String, Object> updateList) {
+        boolean result = false;
+        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
+            @Override
+            public boolean processFinish(boolean output) {
+                return output;
+            }
+        });
+
+
+
+
+        pTask.execute(updateList, HttpProxy.HTTP_POST_API_ACTIVITY_DELETE);
+        try {
+            String response  = pTask.get();
+            if (response.contains("200 OK ")) {
+                result = true;
+                Toast.makeText(RegisterPageActivity.this, "doUpdatePerson OK", Toast.LENGTH_SHORT).show();
+            }
+            else
+                result =  false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean doUpdateActivity(Map<String, Object> updateList) {
+        boolean result = false;
+        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
+            @Override
+            public boolean processFinish(boolean output) {
+                return output;
+            }
+        });
+
+
+
+
+        pTask.execute(updateList, HttpProxy.HTTP_POST_API_ACTIVITY_UPDATE);
+        try {
+            String response  = pTask.get();
+            if (response.contains("200 OK ")) {
+                result = true;
+                Toast.makeText(RegisterPageActivity.this, "doUpdatePerson OK", Toast.LENGTH_SHORT).show();
+            }
+            else
+                result =  false;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public boolean doQueryActivity(Map<String, Object> updateList) {
+        boolean result = false;
+        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
+            @Override
+            public boolean processFinish(boolean output) {
+                return output;
+            }
+        });
+
+
+
+
+        pTask.execute(updateList, HttpProxy.HTTP_POST_API_ACTIVITY_QUERY);
         try {
             String response  = pTask.get();
             if (response.contains("200 OK ")) {
