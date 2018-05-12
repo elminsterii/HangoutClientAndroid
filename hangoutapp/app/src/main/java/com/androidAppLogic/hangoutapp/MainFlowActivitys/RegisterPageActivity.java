@@ -1,5 +1,6 @@
 package com.androidAppLogic.hangoutapp.MainFlowActivitys;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,10 +14,12 @@ import com.androidAppLogic.hangoutapp.DataStructure.BaseActivity;
 import com.androidAppLogic.hangoutapp.HttpConnect.HttpProxy;
 import com.androidAppLogic.hangoutapp.R;
 
+import java.io.InputStream;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import com.androidAppLogic.hangoutapp.Tool.BitmapAndStringUtils;
 
 /**
  * Created by yoie7 on 2018/5/4.
@@ -134,6 +137,20 @@ public class RegisterPageActivity extends BaseActivity {
         mButton_Done.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                Bitmap t1 = BitmapAndStringUtils.drawableToBitmap(getResources().getDrawable(R.drawable.test1));
+                Bitmap t2 = BitmapAndStringUtils.drawableToBitmap(getResources().getDrawable(R.drawable.test2));
+                Bitmap t3 = BitmapAndStringUtils.drawableToBitmap(getResources().getDrawable(R.drawable.test3));
+                Bitmap t4 = BitmapAndStringUtils.drawableToBitmap(getResources().getDrawable(R.drawable.tset4));
+                Bitmap t5 = BitmapAndStringUtils.drawableToBitmap(getResources().getDrawable(R.drawable.test5));
+
+
+                //String s1 = BitmapAndStringUtils.convertIconToString(t1);
+                //String s2 = BitmapAndStringUtils.convertIconToString(t2);
+                //String s3 = BitmapAndStringUtils.convertIconToString(t3);
+                String s4 = BitmapAndStringUtils.convertIconToString(t4);
+                String s5 = BitmapAndStringUtils.convertIconToString(t5);
+
                 /*
                 RegisterPageLogic.doRegister(   mEditText_Account.getText().toString(),
                                                 mEditText_Password.getText().toString(),

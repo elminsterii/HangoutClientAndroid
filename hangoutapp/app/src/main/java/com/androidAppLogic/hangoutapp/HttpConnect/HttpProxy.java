@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import com.androidAppLogic.hangoutapp.Tool.JsonTool;
+import com.androidAppLogic.hangoutapp.Tool.JsonUtils;
 /**
  * Created by yoie7 on 2018/4/27.
  */
@@ -141,7 +141,7 @@ public class HttpProxy {
             URL url = null;
             BufferedReader reader = null;
             StringBuilder stringBuilder;
-            String jsonString = JsonTool.createJsonString(arg0[0]);
+            String jsonString = JsonUtils.createJsonString(arg0[0]);
             //jsonString =  "{\"email":"aaaa","gender":"ddd","displayname":"ccc","password":"bbb","age":"32"}";
             //jsonString = "{\"email\":\"Jimmy2@gmail.com\",\"userpassword\":\"12345\",\"gender\":\"Male\",\"age\":32,\"displayname\":\"Jimmy1\"}";
             try
