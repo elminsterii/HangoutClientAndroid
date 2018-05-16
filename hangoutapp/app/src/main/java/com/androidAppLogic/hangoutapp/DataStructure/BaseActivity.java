@@ -8,6 +8,7 @@ import android.os.Bundle;
  */
 
 public class BaseActivity extends Activity {
+    public Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class BaseActivity extends Activity {
         //bind view content
     }
     protected void initData(){
+        mActivity = this;
         //set data
     }
     protected void initListner(){

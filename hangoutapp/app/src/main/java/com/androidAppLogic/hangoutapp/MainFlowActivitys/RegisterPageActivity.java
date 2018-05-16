@@ -1,5 +1,6 @@
 package com.androidAppLogic.hangoutapp.MainFlowActivitys;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import com.androidAppLogic.hangoutapp.DataStructure.BaseActivity;
 import com.androidAppLogic.hangoutapp.HttpConnect.HttpProxy;
+import com.androidAppLogic.hangoutapp.HttpConnect.Task.Abstract.AsyncResponder;
+import com.androidAppLogic.hangoutapp.HttpConnect.Task.Implement.DoPersonRegisterTask;
 import com.androidAppLogic.hangoutapp.R;
 
 import java.io.InputStream;
@@ -20,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import com.androidAppLogic.hangoutapp.Tool.BitmapAndStringUtils;
+import com.androidAppLogic.hangoutapp.Tool.JsonUtils;
 
 /**
  * Created by yoie7 on 2018/5/4.
@@ -65,6 +69,9 @@ public class RegisterPageActivity extends BaseActivity {
     public static final String REGISTER_ATTRIBUTES_ACTIVITY_ATTENDEES = "attendees";
 
 
+    public static final String API_RESPONSE_TAG = "statuscode";
+
+
 
     private EditText mEditText_Account;
     private EditText mEditText_Password;
@@ -75,7 +82,7 @@ public class RegisterPageActivity extends BaseActivity {
 
     private String m_strGender = "";
     private String m_strAge = "";
-
+    private Activity mActivity;
 
 
     @Override
@@ -98,7 +105,7 @@ public class RegisterPageActivity extends BaseActivity {
 
     @Override
     protected void initData(){
-
+        super.initData();
     }
 
     @Override
@@ -137,74 +144,36 @@ public class RegisterPageActivity extends BaseActivity {
         mButton_Done.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-
-                Bitmap t1 = BitmapAndStringUtils.drawableToBitmap(getResources().getDrawable(R.drawable.test1));
-                Bitmap t2 = BitmapAndStringUtils.drawableToBitmap(getResources().getDrawable(R.drawable.test2));
-                Bitmap t3 = BitmapAndStringUtils.drawableToBitmap(getResources().getDrawable(R.drawable.test3));
-                Bitmap t4 = BitmapAndStringUtils.drawableToBitmap(getResources().getDrawable(R.drawable.tset4));
-                Bitmap t5 = BitmapAndStringUtils.drawableToBitmap(getResources().getDrawable(R.drawable.test5));
-
-
-                //String s1 = BitmapAndStringUtils.convertIconToString(t1);
-                //String s2 = BitmapAndStringUtils.convertIconToString(t2);
-                //String s3 = BitmapAndStringUtils.convertIconToString(t3);
-                String s4 = BitmapAndStringUtils.convertIconToString(t4);
-                String s5 = BitmapAndStringUtils.convertIconToString(t5);
-
-                /*
-                RegisterPageLogic.doRegister(   mEditText_Account.getText().toString(),
-                                                mEditText_Password.getText().toString(),
-                                                mEditText_Name.getText().toString(),
-                                                m_strGender,
-                                                m_strAge);
-                */
-                //doRegister("yoie1@gmail.com","12345","Jimmy44441","Male","32");
-                //doQueryPerson("Jimmy10545454111@gmail.com");
                 Map<String, Object> jsonMap1 = new HashMap<String, Object>();
+                jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, "yoie1@gmail.com");
+                jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_PASSWORD, "12345678");
+                jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_NAME, "yyyyy");
+                jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_GENDER, "M");
+
                 jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_LOCATION, "12345ggg");
                 jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_AGE, 54);
                 jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_INTERESTS, "ball");
                 jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_NEW_PASSWORD, "wqwqwqdddddddwqw");
 
-                //doUpdatePerson("yoie1@gmail.com", "wqwqwqwqw", jsonMap1);
-                //doQueryPerson("yoie1@gmail.com");
-                //doLogIn("Jimmy10545454111@gmail.com","12345");
-                //doLogOut("Jimmy10545454111@gmail.com","12345");
-                //doUnRegister("Jimmy10545454111@gmail.com","12345");
 
-                Map<String, Object> activityList = new HashMap<String, Object>();
-                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_EMAIL, "yoie1@gmail.com");
-                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_PASSWORD, "wqwqwqdddddddwqw");
-                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_DATE_BEGIN, new Date());
-                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_DATE_END, new Date());
-                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_DISPLAYNAME, "yaya");
-                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_EARLY_BIRD, 1);
-                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_LARGE_ACTIVITY, 2);
-                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISH_BEGIN, new Date());
-                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISH_END, new Date());
-                activityList.put(REGISTER_ATTRIBUTES_ACTIVITY_LOCATION, "home");
-                //doCreateActivity(activityList);
+                DoPersonRegisterTask task = new DoPersonRegisterTask(mActivity,
+                        new AsyncResponder<String>() {
+                            @Override
+                            public void onSuccess(String strResponse) {
+                                Toast.makeText(RegisterPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
+
+                                boolean result = false;
+                                if (JsonUtils.getValueByTag(API_RESPONSE_TAG,strResponse).contains("0")) {
+                                    result = true;
+                                    Toast.makeText(RegisterPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
+                                }
+                                else
+                                result =  false;
 
 
-                Map<String, Object> activityList_delete = new HashMap<String, Object>();
-                activityList_delete.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_EMAIL, "yoie1@gmail.com");
-                activityList_delete.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_PASSWORD, "wqwqwqdddddddwqw");
-                activityList_delete.put(REGISTER_ATTRIBUTES_ACTIVITY_ID, 24);
-                doDeleteActivity(activityList_delete);
-
-                int[] idArray = {24};
-                Map<String, Object> activityList_query = new HashMap<String, Object>();
-                activityList_query.put(REGISTER_ATTRIBUTES_ACTIVITY_IDS, idArray);
-                //doQueryActivity(activityList_query);
-
-
-                Map<String, Object> activityList_update = new HashMap<String, Object>();
-                activityList_update.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_EMAIL, "yoie1@gmail.com");
-                activityList_update.put(REGISTER_ATTRIBUTES_ACTIVITY_PUBLISHER_PASSWORD, "wqwqwqdddddddwqw");
-                activityList_update.put(REGISTER_ATTRIBUTES_ACTIVITY_ID, 24);
-                activityList_update.put(REGISTER_ATTRIBUTES_ACTIVITY_TAGS, "LOL");
-
-                //doUpdateActivity(activityList_update);
+                            }
+                        });
+                task.execute(jsonMap1);
 
 
             }
@@ -212,304 +181,6 @@ public class RegisterPageActivity extends BaseActivity {
         });
     }
 
-    public boolean doRegister(String strAccount,
-                                     String strPwd,
-                                     String strName,
-                                     String strGender,
-                                     String strAge) {
-        boolean result = false;
-        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
-            @Override
-            public boolean processFinish(boolean output) {
-                return output;
-            }
-        });
-        Map<String, Object> jsonMap1 = new HashMap<String, Object>();
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_PASSWORD, strPwd);
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_NAME, strName);
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_GENDER, strGender);
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_AGE, 32);
-
-
-        pTask.execute(jsonMap1, HttpProxy.HTTP_POST_API_REGISTER);
-        try {
-            String response  = pTask.get();
-            /*if (response.contains("200 OK ")) {
-                result = true;
-                Toast.makeText(RegisterPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
-            }
-            else
-                result =  false;
-                */
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-
-    public boolean doUnRegister(String strAccount, String strPwd) {
-        boolean result = false;
-        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
-            @Override
-            public boolean processFinish(boolean output) {
-                return output;
-            }
-        });
-        Map<String, String> jsonMap1 = new HashMap<String, String>();
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_PASSWORD, strPwd);
-        pTask.execute(jsonMap1, HttpProxy.HTTP_POST_API_UNREGISTER);
-        try {
-            String response  = pTask.get();
-            if (response.contains("200 OK ")) {
-                result = true;
-                Toast.makeText(RegisterPageActivity.this, "doUnRegister OK", Toast.LENGTH_SHORT).show();
-            }
-            else
-                result =  false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public boolean doQueryPerson(String strAccount) {
-        boolean result = false;
-        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
-            @Override
-            public boolean processFinish(boolean output) {
-                return output;
-            }
-        });
-        Map<String, String> jsonMap1 = new HashMap<String, String>();
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
-
-
-
-        pTask.execute(jsonMap1, HttpProxy.HTTP_POST_API_PERSON_QUERY_);
-        try {
-            String response  = pTask.get();
-            if (response.contains("200 OK ")) {
-                result = true;
-                Toast.makeText(RegisterPageActivity.this, "doQueryPerson OK", Toast.LENGTH_SHORT).show();
-            }
-            else
-                result =  false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public boolean doLogIn(String strAccount, String strPwd) {
-        boolean result = false;
-        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
-            @Override
-            public boolean processFinish(boolean output) {
-                return output;
-            }
-        });
-        Map<String, String> jsonMap1 = new HashMap<String, String>();
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_PASSWORD, strPwd);
-        pTask.execute(jsonMap1, HttpProxy.HTTP_POST_API_LOGIN);
-        try {
-            String response  = pTask.get();
-            if (response.contains("200 OK ")) {
-                result = true;
-                Toast.makeText(RegisterPageActivity.this, "doLogIn OK", Toast.LENGTH_SHORT).show();
-            }
-            else
-                result =  false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public boolean doLogOut(String strAccount, String strPwd) {
-        boolean result = false;
-        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
-            @Override
-            public boolean processFinish(boolean output) {
-                return output;
-            }
-        });
-        Map<String, String> jsonMap1 = new HashMap<String, String>();
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
-        jsonMap1.put(REGISTER_ATTRIBUTES_PERSON_PASSWORD, strPwd);
-        pTask.execute(jsonMap1, HttpProxy.HTTP_POST_API_LOGOUT);
-        try {
-            String response  = pTask.get();
-            if (response.contains("200 OK ")) {
-                result = true;
-                Toast.makeText(RegisterPageActivity.this, "doLogOut OK", Toast.LENGTH_SHORT).show();
-            }
-            else
-                result =  false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public boolean doUpdatePerson(String strAccount,  String strPwd,Map<String, Object> updateList) {
-        boolean result = false;
-        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
-            @Override
-            public boolean processFinish(boolean output) {
-                return output;
-            }
-        });
-        updateList.put(REGISTER_ATTRIBUTES_PERSON_ACCOUNT, strAccount);
-        updateList.put(REGISTER_ATTRIBUTES_PERSON_PASSWORD, strPwd);
-
-
-
-        pTask.execute(updateList, HttpProxy.HTTP_POST_API_PERSON_UPDATE);
-        try {
-            String response  = pTask.get();
-            if (response.contains("200 OK ")) {
-                result = true;
-                Toast.makeText(RegisterPageActivity.this, "doUpdatePerson OK", Toast.LENGTH_SHORT).show();
-            }
-            else
-                result =  false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public boolean doCreateActivity(Map<String, Object> updateList) {
-        boolean result = false;
-        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
-            @Override
-            public boolean processFinish(boolean output) {
-                return output;
-            }
-        });
-
-
-
-
-        pTask.execute(updateList, HttpProxy.HTTP_POST_API_ACTIVITY_CREATE);
-        try {
-            String response  = pTask.get();
-            if (response.contains("200 OK ")) {
-                result = true;
-                Toast.makeText(RegisterPageActivity.this, "doUpdatePerson OK", Toast.LENGTH_SHORT).show();
-            }
-            else
-                result =  false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public boolean doDeleteActivity(Map<String, Object> updateList) {
-        boolean result = false;
-        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
-            @Override
-            public boolean processFinish(boolean output) {
-                return output;
-            }
-        });
-
-
-
-
-        pTask.execute(updateList, HttpProxy.HTTP_POST_API_ACTIVITY_DELETE);
-        try {
-            String response  = pTask.get();
-            if (response.contains("200 OK ")) {
-                result = true;
-                Toast.makeText(RegisterPageActivity.this, "doUpdatePerson OK", Toast.LENGTH_SHORT).show();
-            }
-            else
-                result =  false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public boolean doUpdateActivity(Map<String, Object> updateList) {
-        boolean result = false;
-        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
-            @Override
-            public boolean processFinish(boolean output) {
-                return output;
-            }
-        });
-
-
-
-
-        pTask.execute(updateList, HttpProxy.HTTP_POST_API_ACTIVITY_UPDATE);
-        try {
-            String response  = pTask.get();
-            if (response.contains("200 OK ")) {
-                result = true;
-                Toast.makeText(RegisterPageActivity.this, "doUpdatePerson OK", Toast.LENGTH_SHORT).show();
-            }
-            else
-                result =  false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public boolean doQueryActivity(Map<String, Object> updateList) {
-        boolean result = false;
-        HttpProxy.HttpPostTask pTask = new HttpProxy.HttpPostTask(new HttpProxy.AsyncResponse() {
-            @Override
-            public boolean processFinish(boolean output) {
-                return output;
-            }
-        });
-
-
-
-
-        pTask.execute(updateList, HttpProxy.HTTP_POST_API_ACTIVITY_QUERY);
-        try {
-            String response  = pTask.get();
-            if (response.contains("200 OK ")) {
-                result = true;
-                Toast.makeText(RegisterPageActivity.this, "doUpdatePerson OK", Toast.LENGTH_SHORT).show();
-            }
-            else
-                result =  false;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
 
 
 
