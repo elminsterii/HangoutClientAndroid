@@ -46,6 +46,7 @@ public class RegisterPageActivity extends BaseActivity {
     private EditText mEditText_Name;
     private RadioGroup mRadio_Gender;
     private Spinner mSpinner_Age;
+    private Spinner mSpinner_Gender;
     private Button mButton_Done;
 
     private String m_strGender = "";
@@ -66,7 +67,7 @@ public class RegisterPageActivity extends BaseActivity {
         mEditText_Password = (EditText) findViewById(R.id.edit_pwd);
         mEditText_Name = (EditText) findViewById(R.id.edit_name);
         mSpinner_Age = (Spinner) findViewById(R.id.spinner_age);
-        mRadio_Gender = (RadioGroup)findViewById(R.id.radioG_gender);
+        mSpinner_Gender = (Spinner) findViewById(R.id.spinner_gender);
         mButton_Done = (Button)findViewById(R.id.btn_done);
 
     }
@@ -80,20 +81,17 @@ public class RegisterPageActivity extends BaseActivity {
     protected void initListner(){
 
 
-        mRadio_Gender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId)
-                    {
-                        if(checkedId == R.id.radio_gender_male)
-                        {
-                            m_strGender = "M";
-                        }
-                        else if(checkedId == R.id.radio_gender_female)
-                        {
-                            m_strGender = "F";
-                        }
-                    }
-                });
+        mSpinner_Gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                m_strAge = String.valueOf(AGE_LIMITATION + position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 

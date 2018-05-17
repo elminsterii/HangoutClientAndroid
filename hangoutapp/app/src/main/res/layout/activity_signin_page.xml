@@ -2,8 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/landingpage_bg"
     android:orientation="vertical"
 >
+
+    <ImageView
+        android:layout_marginTop="128dp"
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:src="@drawable/linkgood_logo" />
 
     <EditText
         android:id="@+id/edit_account"
@@ -11,6 +24,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:hint="Account"
+        android:maxLines="1"
         android:ems="10"
  />
 
@@ -22,6 +36,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:hint="Password"
+        android:maxLines="1"
         android:ems="10"
  />
 
@@ -36,7 +51,7 @@
 
     <Button
         android:layout_marginTop="50dp"
-        android:id="@+id/btn_signup"
+        android:id="@+id/btn_register"
         android:text="@string/sign_up"
         android:layout_width="wrap_content"
         android:layout_height="50dp"

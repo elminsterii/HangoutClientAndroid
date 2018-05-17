@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.androidAppLogic.hangoutapp.HttpConnect.HttpProxy;
 import com.androidAppLogic.hangoutapp.MainFlowActivitys.RegisterPageActivity;
+import com.androidAppLogic.hangoutapp.MainFlowActivitys.SignInPageActivity;
 
 import java.util.HashMap;
 
@@ -44,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+    super.onResume();
+        Intent intent = new Intent(this, SignInPageActivity.class);
+        startActivity(intent);
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -59,9 +66,7 @@ public class MainActivity extends AppCompatActivity {
             pTask.execute(jsonMap1);
             return true;
             */
-            Intent intent = new Intent(this,
-                    RegisterPageActivity.class);
-            startActivity(intent);
+
         }
 
         return super.onOptionsItemSelected(item);

@@ -2,12 +2,13 @@ package com.androidAppLogic.hangoutapp.DataStructure;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by yoie7 on 2018/5/3.
  */
 
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
     public Activity mActivity;
 
     @Override
@@ -21,10 +22,11 @@ public class BaseActivity extends Activity {
 
     protected void initView(){
         //bind view content
+        super.setTitle(getTitle());
     }
     protected void initData(){
-        mActivity = this;
         //set data
+        mActivity = this;
     }
     protected void initListner(){
         //bind listner

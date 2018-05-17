@@ -2,8 +2,77 @@
 <resources>
     <string name="app_name">別宅</string>
     <string name="action_settings">Post</string>
-
     <string name="sign_in">登入</string>
     <string name="sign_up">註冊</string>
+    <string name="user_data_email">電子郵件</string>
+    <string name="user_data_pwd">密碼</string>
+    <string name="user_data_name">顯示暱稱</string>
+    <string name="done">完成</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string-array name="user_age_list">
+        <item>年齡</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+        <item>46</item>
+        <item>47</item>
+        <item>48</item>
+        <item>49</item>
+        <item>50</item>
+    </string-array>
+
+    <string-array name="user_gender_list">
+        <item>性別</item>
+        <item>男性</item>
+        <item>女性</item>
+    </string-array>
+
 
 </resources>
