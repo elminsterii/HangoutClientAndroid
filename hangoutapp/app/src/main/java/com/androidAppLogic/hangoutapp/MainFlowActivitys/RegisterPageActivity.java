@@ -2,6 +2,8 @@ package com.androidAppLogic.hangoutapp.MainFlowActivitys;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -14,12 +16,14 @@ import com.androidAppLogic.hangoutapp.DataStructure.BaseActivity;
 import com.androidAppLogic.hangoutapp.DataStructure.PersonAttributes;
 import com.androidAppLogic.hangoutapp.HttpConnect.Task.Abstract.AsyncResponder;
 import com.androidAppLogic.hangoutapp.HttpConnect.Task.Implement.DoPersonQueryTask;
+import com.androidAppLogic.hangoutapp.HttpConnect.Task.Implement.DoPersonRegisterTask;
 import com.androidAppLogic.hangoutapp.R;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.androidAppLogic.hangoutapp.Tool.JsonUtils;
+import com.androidAppLogic.hangoutapp.Tool.ParserUtils;
 
 import org.json.JSONArray;
 
@@ -51,7 +55,6 @@ public class RegisterPageActivity extends BaseActivity {
 
     private String m_strGender = "";
     private String m_strAge = "";
-    private Activity mActivity;
 
 
     @Override
@@ -63,6 +66,8 @@ public class RegisterPageActivity extends BaseActivity {
 
     @Override
     protected void initView(){
+        super.initView();
+
         mEditText_Account = (EditText) findViewById(R.id.edit_account);
         mEditText_Password = (EditText) findViewById(R.id.edit_pwd);
         mEditText_Name = (EditText) findViewById(R.id.edit_name);
@@ -110,6 +115,37 @@ public class RegisterPageActivity extends BaseActivity {
         mButton_Done.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
+                if(isDataValid()){
+                    Map<String, Object> registerList = new HashMap<String, Object>();
+                    registerList.put(PersonAttributes.ATTRIBUTES_PERSON_ACCOUNT, mEditText_Account.getText().toString());
+                    registerList.put(PersonAttributes.ATTRIBUTES_PERSON_PASSWORD, mEditText_Password.getText().toString());
+                    registerList.put(PersonAttributes.ATTRIBUTES_PERSON_NAME, mEditText_Name.getText().toString());
+                    registerList.put(PersonAttributes.ATTRIBUTES_PERSON_AGE, mSpinner_Age.getSelectedItemPosition()+AGE_LIMITATION -1);
+                    registerList.put(PersonAttributes.ATTRIBUTES_PERSON_GENDER, mSpinner_Gender.getSelectedItemPosition() == 1 ? "M":"F");
+                    DoPersonRegisterTask task = new DoPersonRegisterTask(mActivity,
+                            new AsyncResponder<String>() {
+                                @Override
+                                public void onSuccess(String strResponse) {
+                                    Toast.makeText(RegisterPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
+
+                                    boolean result = false;
+                                    if (ParserUtils.getValueByTag(API_RESPONSE_TAG,strResponse).contains("0")) {
+                                        result = true;
+                                        Toast.makeText(RegisterPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        result = false;
+                                        Toast.makeText(RegisterPageActivity.this, "doRegister Failed", Toast.LENGTH_SHORT).show();
+
+                                    }
+
+                                }
+                            });
+                    task.execute(registerList);
+
+                }
+
+
                 /*   DO Person Register Test
                 Map<String, Object> jsonMap1 = new HashMap<String, Object>();
                 jsonMap1.put(ATTRIBUTES_PERSON_ACCOUNT, "yoie1@gmail.com");
@@ -171,6 +207,37 @@ public class RegisterPageActivity extends BaseActivity {
             }
 
         });
+    }
+
+    private boolean isDataValid(){
+        boolean isValid = true;
+        if (!Patterns.EMAIL_ADDRESS.matcher(mEditText_Account.getText().toString().trim()).matches()
+                || TextUtils.isEmpty(mEditText_Account.getText().toString().trim())) {
+            Toast.makeText(mActivity, "invalid email", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+        if(TextUtils.isEmpty(mEditText_Password.getText().toString().trim())
+                || mEditText_Password.getText().toString().length() < 8){
+            Toast.makeText(mActivity, "invalid password", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+        if(TextUtils.isEmpty(mEditText_Name.getText().toString().trim())){
+            Toast.makeText(mActivity, "invalid name", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+        if(mSpinner_Gender.getSelectedItemPosition() == 0){
+            Toast.makeText(mActivity, "please choose your gender", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+        if(mSpinner_Age.getSelectedItemPosition() == 0){
+            Toast.makeText(mActivity, "please choose your age", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+
+
+        return isValid;
+
+
     }
 
 
