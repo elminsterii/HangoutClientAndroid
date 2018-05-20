@@ -7,9 +7,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.androidAppLogic.hangoutapp.DataStructure.PersonAttributes;
+import com.androidAppLogic.hangoutapp.HttpConnect.Task.Abstract.AsyncResponder;
+import com.androidAppLogic.hangoutapp.HttpConnect.Task.Implement.DoPersonLogInTask;
+import com.androidAppLogic.hangoutapp.HttpConnect.Task.Implement.DoPersonRegisterTask;
 import com.androidAppLogic.hangoutapp.R;
 import com.androidAppLogic.hangoutapp.DataStructure.BaseActivity;
+import com.androidAppLogic.hangoutapp.Tool.ParserUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.androidAppLogic.hangoutapp.MainFlowActivitys.RegisterPageActivity.API_RESPONSE_TAG;
 
 /**
  * Created by yoie7 on 2018/5/3.
@@ -50,6 +61,28 @@ public class SignInPageActivity extends BaseActivity{
         mButton_SignIn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Map<String, Object> registerList = new HashMap<String, Object>();
+                registerList.put(PersonAttributes.ATTRIBUTES_PERSON_ACCOUNT, mEditText_Account.getText().toString());
+                registerList.put(PersonAttributes.ATTRIBUTES_PERSON_PASSWORD, mEditText_Password.getText().toString());
+                DoPersonLogInTask task = new DoPersonLogInTask(mActivity,
+                        new AsyncResponder<String>() {
+                            @Override
+                            public void onSuccess(String strResponse) {
+                                Toast.makeText(SignInPageActivity.this, "doLogin OK", Toast.LENGTH_SHORT).show();
+
+                                boolean result = false;
+                                if (ParserUtils.getValueByTag(API_RESPONSE_TAG, strResponse).contains("0")) {
+                                    result = true;
+                                    Toast.makeText(SignInPageActivity.this, "doLogin OK", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    result = false;
+                                    Toast.makeText(SignInPageActivity.this, "doLogin Failed", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                            }
+                        });
+                task.execute(registerList);
 
             }
         });
