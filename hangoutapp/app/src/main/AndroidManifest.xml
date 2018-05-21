@@ -20,7 +20,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainFlowActivitys.RegisterPageActivity"
+            android:name=".MainFlowActivitys.ReigisterFlow.RegisterPrimaryPageActivity"
+            android:label="@string/sign_up"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
+            android:name=".MainFlowActivitys.ReigisterFlow.RegisterLocationPageActivity"
+            android:label="@string/sign_up"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
+            android:name=".MainFlowActivitys.ReigisterFlow.RegisterInterestPageActivity"
             android:label="@string/sign_up"
             android:screenOrientation="portrait" >
         </activity>

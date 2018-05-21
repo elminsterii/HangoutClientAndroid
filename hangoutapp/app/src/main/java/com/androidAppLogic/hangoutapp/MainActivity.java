@@ -9,13 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.androidAppLogic.hangoutapp.HttpConnect.HttpProxy;
-import com.androidAppLogic.hangoutapp.MainFlowActivitys.RegisterPageActivity;
+
 import com.androidAppLogic.hangoutapp.MainFlowActivitys.SignInPageActivity;
-
-import java.util.HashMap;
-
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 

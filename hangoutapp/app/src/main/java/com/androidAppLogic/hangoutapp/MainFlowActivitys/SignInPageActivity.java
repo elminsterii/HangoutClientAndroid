@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.androidAppLogic.hangoutapp.DataStructure.PersonAttributes;
 import com.androidAppLogic.hangoutapp.HttpConnect.Task.Abstract.AsyncResponder;
 import com.androidAppLogic.hangoutapp.HttpConnect.Task.Implement.DoPersonLogInTask;
-import com.androidAppLogic.hangoutapp.HttpConnect.Task.Implement.DoPersonRegisterTask;
+import com.androidAppLogic.hangoutapp.MainFlowActivitys.ReigisterFlow.RegisterPrimaryPageActivity;
 import com.androidAppLogic.hangoutapp.R;
 import com.androidAppLogic.hangoutapp.DataStructure.BaseActivity;
 import com.androidAppLogic.hangoutapp.Tool.ParserUtils;
@@ -20,7 +18,7 @@ import com.androidAppLogic.hangoutapp.Tool.ParserUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.androidAppLogic.hangoutapp.MainFlowActivitys.RegisterPageActivity.API_RESPONSE_TAG;
+import static com.androidAppLogic.hangoutapp.MainFlowActivitys.ReigisterFlow.RegisterPrimaryPageActivity.API_RESPONSE_TAG;
 
 /**
  * Created by yoie7 on 2018/5/3.
@@ -90,7 +88,7 @@ public class SignInPageActivity extends BaseActivity{
         mButton_Register.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity, RegisterPageActivity.class);
+                Intent intent = new Intent(mActivity, RegisterPrimaryPageActivity.class);
                 startActivity(intent);
             }
         });

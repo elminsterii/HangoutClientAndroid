@@ -1,6 +1,6 @@
-package com.androidAppLogic.hangoutapp.MainFlowActivitys;
+package com.androidAppLogic.hangoutapp.MainFlowActivitys.ReigisterFlow;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -15,27 +15,23 @@ import android.widget.Toast;
 import com.androidAppLogic.hangoutapp.DataStructure.BaseActivity;
 import com.androidAppLogic.hangoutapp.DataStructure.PersonAttributes;
 import com.androidAppLogic.hangoutapp.HttpConnect.Task.Abstract.AsyncResponder;
-import com.androidAppLogic.hangoutapp.HttpConnect.Task.Implement.DoPersonQueryTask;
 import com.androidAppLogic.hangoutapp.HttpConnect.Task.Implement.DoPersonRegisterTask;
 import com.androidAppLogic.hangoutapp.R;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import com.androidAppLogic.hangoutapp.Tool.JsonUtils;
+import com.androidAppLogic.hangoutapp.Tool.SerializableHashMap;
 import com.androidAppLogic.hangoutapp.Tool.ParserUtils;
-
-import org.json.JSONArray;
 
 /**
  * Created by yoie7 on 2018/5/4.
  */
 
-public class RegisterPageActivity extends BaseActivity {
+public class RegisterPrimaryPageActivity extends BaseActivity {
 
     //                      Person Attr.
     public static final int AGE_LIMITATION = 18;
-    public static final String API_RESPONSE_TAG = "statuscode";
+    public static final String API_RESPONSE_TAG = "status_code";
 
 
     //                      Activity Attr.
@@ -59,7 +55,7 @@ public class RegisterPageActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_register_page);
+        setContentView(R.layout.activity_register_primary_page);
         super.onCreate(savedInstanceState);
 
     }
@@ -116,26 +112,38 @@ public class RegisterPageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(isDataValid()){
-                    Map<String, Object> registerList = new HashMap<String, Object>();
+                    HashMap<String, Object> registerList = new HashMap<String, Object>();
                     registerList.put(PersonAttributes.ATTRIBUTES_PERSON_ACCOUNT, mEditText_Account.getText().toString());
                     registerList.put(PersonAttributes.ATTRIBUTES_PERSON_PASSWORD, mEditText_Password.getText().toString());
                     registerList.put(PersonAttributes.ATTRIBUTES_PERSON_NAME, mEditText_Name.getText().toString());
                     registerList.put(PersonAttributes.ATTRIBUTES_PERSON_AGE, mSpinner_Age.getSelectedItemPosition()+AGE_LIMITATION -1);
                     registerList.put(PersonAttributes.ATTRIBUTES_PERSON_GENDER, mSpinner_Gender.getSelectedItemPosition() == 1 ? "M":"F");
+
+                    //String jString = JsonUtils.createJsonString(registerList);
+
+                    Intent intent = new Intent(mActivity, RegisterLocationPageActivity.class);
+
+                    SerializableHashMap hashMapList = new SerializableHashMap();
+                    hashMapList.setObjectItems(registerList);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("mapList", hashMapList);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
                     DoPersonRegisterTask task = new DoPersonRegisterTask(mActivity,
                             new AsyncResponder<String>() {
                                 @Override
                                 public void onSuccess(String strResponse) {
-                                    Toast.makeText(RegisterPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterPrimaryPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
 
                                     boolean result = false;
                                     if (ParserUtils.getValueByTag(API_RESPONSE_TAG,strResponse).contains("0")) {
                                         result = true;
-                                        Toast.makeText(RegisterPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterPrimaryPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
                                     }
                                     else {
                                         result = false;
-                                        Toast.makeText(RegisterPageActivity.this, "doRegister Failed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterPrimaryPageActivity.this, "doRegister Failed", Toast.LENGTH_SHORT).show();
 
                                     }
 
@@ -163,12 +171,12 @@ public class RegisterPageActivity extends BaseActivity {
                         new AsyncResponder<String>() {
                             @Override
                             public void onSuccess(String strResponse) {
-                                Toast.makeText(RegisterPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterPrimaryPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
 
                                 boolean result = false;
                                 if (JsonUtils.getValueByTag(API_RESPONSE_TAG,strResponse).contains("0")) {
                                     result = true;
-                                    Toast.makeText(RegisterPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterPrimaryPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
                                 }
                                 else
                                 result =  false;
@@ -188,12 +196,12 @@ public class RegisterPageActivity extends BaseActivity {
                         new AsyncResponder<String>() {
                             @Override
                             public void onSuccess(String strResponse) {
-                                Toast.makeText(RegisterPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterPrimaryPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
                                 PersonAttributes person = JsonUtils.getPersonAttr(strResponse);
                                 boolean result = false;
                                 if (JsonUtils.getValueByTag(API_RESPONSE_TAG,strResponse).contains("0")) {
                                     result = true;
-                                    Toast.makeText(RegisterPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterPrimaryPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
                                 }
                                 else
                                 result =  false;
