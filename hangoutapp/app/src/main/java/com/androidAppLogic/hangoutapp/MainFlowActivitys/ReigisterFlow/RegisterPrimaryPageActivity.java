@@ -29,28 +29,17 @@ import com.androidAppLogic.hangoutapp.Tool.ParserUtils;
 
 public class RegisterPrimaryPageActivity extends BaseActivity {
 
-    //                      Person Attr.
     public static final int AGE_LIMITATION = 18;
     public static final String API_RESPONSE_TAG = "status_code";
-
-
-    //                      Activity Attr.
-
-
-
-
 
 
     private EditText mEditText_Account;
     private EditText mEditText_Password;
     private EditText mEditText_Name;
-    private RadioGroup mRadio_Gender;
     private Spinner mSpinner_Age;
     private Spinner mSpinner_Gender;
-    private Button mButton_Done;
+    private Button mButton_Next;
 
-    private String m_strGender = "";
-    private String m_strAge = "";
 
 
     @Override
@@ -69,7 +58,7 @@ public class RegisterPrimaryPageActivity extends BaseActivity {
         mEditText_Name = (EditText) findViewById(R.id.edit_name);
         mSpinner_Age = (Spinner) findViewById(R.id.spinner_age);
         mSpinner_Gender = (Spinner) findViewById(R.id.spinner_gender);
-        mButton_Done = (Button)findViewById(R.id.btn_done);
+        mButton_Next = (Button)findViewById(R.id.btn_done);
 
     }
 
@@ -85,7 +74,6 @@ public class RegisterPrimaryPageActivity extends BaseActivity {
         mSpinner_Gender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                m_strAge = String.valueOf(AGE_LIMITATION + position);
             }
 
             @Override
@@ -99,7 +87,6 @@ public class RegisterPrimaryPageActivity extends BaseActivity {
         mSpinner_Age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                m_strAge = String.valueOf(AGE_LIMITATION + position);
             }
 
             @Override
@@ -108,7 +95,7 @@ public class RegisterPrimaryPageActivity extends BaseActivity {
             }
         });
 
-        mButton_Done.setOnClickListener(new Button.OnClickListener(){
+        mButton_Next.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
                 if(isDataValid()){
@@ -122,7 +109,6 @@ public class RegisterPrimaryPageActivity extends BaseActivity {
                     //String jString = JsonUtils.createJsonString(registerList);
 
                     Intent intent = new Intent(mActivity, RegisterLocationPageActivity.class);
-
                     SerializableHashMap hashMapList = new SerializableHashMap();
                     hashMapList.setObjectItems(registerList);
                     Bundle bundle = new Bundle();
@@ -130,28 +116,14 @@ public class RegisterPrimaryPageActivity extends BaseActivity {
                     intent.putExtras(bundle);
                     startActivity(intent);
 
-                    DoPersonRegisterTask task = new DoPersonRegisterTask(mActivity,
-                            new AsyncResponder<String>() {
-                                @Override
-                                public void onSuccess(String strResponse) {
-                                    Toast.makeText(RegisterPrimaryPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
 
-                                    boolean result = false;
-                                    if (ParserUtils.getValueByTag(API_RESPONSE_TAG,strResponse).contains("0")) {
-                                        result = true;
-                                        Toast.makeText(RegisterPrimaryPageActivity.this, "doRegister OK", Toast.LENGTH_SHORT).show();
-                                    }
-                                    else {
-                                        result = false;
-                                        Toast.makeText(RegisterPrimaryPageActivity.this, "doRegister Failed", Toast.LENGTH_SHORT).show();
-
-                                    }
-
-                                }
-                            });
-                    task.execute(registerList);
 
                 }
+
+
+
+
+
 
 
                 /*   DO Person Register Test
