@@ -6,6 +6,7 @@ import com.androidAppLogic.hangoutapp.DataStructure.PersonAttributes;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -121,4 +122,38 @@ public class ParserUtils {
         }
         return result;
     }
+
+    public static String listStringToString(ArrayList<String> lsString, char splitChar) {
+        if(lsString == null || lsString.isEmpty())
+            return "";
+
+        StringBuilder strBuilder = new StringBuilder();
+        for(String str : lsString) {
+            if(str != null && !str.isEmpty())
+                strBuilder.append(str).append(splitChar);
+        }
+
+        if(strBuilder.length() > 0)
+            strBuilder.deleteCharAt(strBuilder.length()-1);
+
+        return strBuilder.toString();
+    }
+
+    public static String arrayStringToString(String[] arrString, char splitChar) {
+        if(arrString == null || arrString.length <= 0)
+            return "";
+
+        StringBuilder strBuilder = new StringBuilder();
+        for(String str : arrString) {
+            if(str != null && !str.isEmpty())
+                strBuilder.append(str).append(splitChar);
+        }
+
+        if(strBuilder.length() > 0)
+            strBuilder.deleteCharAt(strBuilder.length()-1);
+
+        return strBuilder.toString();
+    }
+
+
 }

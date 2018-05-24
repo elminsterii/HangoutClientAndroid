@@ -54,7 +54,7 @@ public class RegisterLocationPageActivity extends BaseActivity {
             public void onClick(View v) {
                 if(mSpinner_Location.getSelectedItemPosition() != 0){
                     mRegisterList.put(PersonAttributes.ATTRIBUTES_PERSON_LOCATION, mSpinner_Location.getSelectedItem().toString());
-                    Intent intent = new Intent(mActivity, RegisterLocationPageActivity.class);
+                    Intent intent = new Intent(mActivity, RegisterInterestPageActivity.class);
                     SerializableHashMap hashMapList = new SerializableHashMap();
                     hashMapList.setObjectItems(mRegisterList);
                     Bundle bundle = new Bundle();

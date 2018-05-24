@@ -42,6 +42,12 @@
             android:label="@string/sign_in"
             android:screenOrientation="portrait" >
         </activity>
+
+        <activity
+            android:name=".MainFlowActivitys.HomePageActivity"
+            android:label="@string/home_page"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

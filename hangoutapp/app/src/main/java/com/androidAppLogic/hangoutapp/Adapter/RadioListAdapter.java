@@ -172,6 +172,58 @@ public class RadioListAdapter extends BaseAdapter {
             }
             //holder = (viewHolder) convertView.getTag(position);
         }
+
+        if(holder == null){
+            holder = new viewHolder();
+            convertView = inflater.inflate(R.layout.item_radio_list, null);
+            holder.nameTxt = (TextView) convertView.findViewById(R.id.interest_name);
+            holder.selectBtn = (RadioButton) convertView
+                    .findViewById(R.id.radio);
+            holder.index = position;
+            switch (position){
+                case 0:{
+                    convertView.setTag(R.id.tag_0, holder);
+                    break;
+                }
+                case 1:{
+                    convertView.setTag(R.id.tag_1, holder);
+                    break;
+                }
+                case 2:{
+                    convertView.setTag(R.id.tag_2, holder);
+                    break;
+                }
+                case 3:{
+                    convertView.setTag(R.id.tag_3, holder);
+                    break;
+                }
+                case 4:{
+                    convertView.setTag(R.id.tag_4, holder);
+                    break;
+                }
+                case 5:{
+                    convertView.setTag(R.id.tag_5, holder);
+                    break;
+                }
+                case 6:{
+                    convertView.setTag(R.id.tag_6, holder);
+                    break;
+                }
+                case 7:{
+                    convertView.setTag(R.id.tag_7, holder);
+                    break;
+                }
+                case 8:{
+                    convertView.setTag(R.id.tag_8, holder);
+                    break;
+                }
+                case 9:{
+                    convertView.setTag(R.id.tag_9, holder);
+                    break;
+                }
+
+            }
+        }
         holder.nameTxt.setText(interests[position]);
         final View cView = convertView;
         holder.selectBtn.setOnClickListener(new View.OnClickListener() {
@@ -234,6 +286,9 @@ public class RadioListAdapter extends BaseAdapter {
 
             }
         });
+
+        if(holder.selectBtn.isChecked() != radioStateList.get(position))
+            holder.selectBtn.setChecked(!holder.selectBtn.isChecked());
 
         return convertView;
     }

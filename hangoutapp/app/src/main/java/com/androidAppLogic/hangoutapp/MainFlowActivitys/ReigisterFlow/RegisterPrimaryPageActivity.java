@@ -31,6 +31,7 @@ public class RegisterPrimaryPageActivity extends BaseActivity {
 
     public static final int AGE_LIMITATION = 18;
     public static final String API_RESPONSE_TAG = "status_code";
+    public static final String API_REQUEST_TAG = "verifycode";
 
 
     private EditText mEditText_Account;
